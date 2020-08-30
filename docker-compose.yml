@@ -1,0 +1,28 @@
+version: '3'
+services:
+  flask:
+    build: ./src
+
+    container_name: flask
+    restart: always
+    environment:
+      - APP_NAME="Flask App"
+      - MONGO_URI=db
+      - MONGO_PORT=27017
+      - DB_NAME=people
+      - DOCKER=True
+      - DEBUG=True
+
+    volumes:
+      - ./src:/app
+    ports:
+      - 8000:3000
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    restart: always
+    container_name: mongodb
+    image: mongo

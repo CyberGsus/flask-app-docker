@@ -1,0 +1,9 @@
+FROM python:3.8
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip3 install -U pip
+RUN pip3 install  -rrequirements.txt
+
+ENTRYPOINT ["uwsgi", "app.ini"]
